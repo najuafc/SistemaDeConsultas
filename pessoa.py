@@ -1,21 +1,25 @@
 from consulta import Consulta, Modalidade
 
 class Pessoa:
-    def __init__(self, nome, idade, cpf):
+    def __init__(self, nome, cpf):
         self.nome = nome
-        self.idade = idade
         self.cpf = cpf
 
+    def mostrarInformacoes(self):
+        return f'''
+Nome: {self.nome}
+CPF: {self.cpf}'''
+
 class Paciente(Pessoa):
-    def __init__(self, nome, idade, cpf, historicoMedico):
-        super().__init__(nome, idade, cpf)
+    def __init__(self, nome, cpf, historicoMedico):
+        super().__init__(nome, cpf)
         self.historicoMedico = historicoMedico
         self.consultas = []
 
     def marcarConsulta(self, medico, dataHora):
-        nova_consulta = Consulta(self, medico, dataHora)
-        self.consultas.append(nova_consulta)
-        return f"Consulta marcada para {dataHora} com {medico.nome}."
+        novaConsulta = Consulta(self, medico, dataHora)
+        self.consultas.append(novaConsulta)
+        return f"Consulta do paciente {self.nome} marcada para {dataHora} com {medico.nome}."
 
     def mostrarConsultas(self):
         return [consulta.dataHora for consulta in self.consultas]
@@ -26,13 +30,23 @@ class Paciente(Pessoa):
 
     def cancelarConsulta(self, consulta):
         self.consultas.remove(consulta)
-        return f"Consulta cancelada para {consulta.dataHora}."
+        return f"Consulta cancelada."
+    
+    def mostrarInformacoes(self):
+        infoPaciente = super().mostrarInformacoes()
+        return f'''
+Dados do paciente:
+{infoPaciente}
+Histórico médico: {self.historicoMedico}'''
 
 class Medico(Pessoa):
-    def __init__(self, nome, idade, cpf, especialidade):
-        super().__init__(nome, idade, cpf)
+    def __init__(self, nome, cpf, especialidade):
+        super().__init__(nome, cpf)
         self.especialidade = especialidade
 
     def mostrarInformacoes(self):
         infoMedico = super().mostrarInformacoes()
-        return f"{infoMedico}, Especialidade: {self.especialidade}"
+        return f'''
+Dados do médico:
+{infoMedico}
+Especialidade: {self.especialidade}'''
