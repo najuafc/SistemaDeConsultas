@@ -56,22 +56,25 @@ def main():
 
         elif opcao == "4":
 
-            consultas = consulta.mostrarConsultas()
+            while True:
+                consultas = consulta.mostrarConsultas()
 
-            if consultas:
-                print("\nConsultas disponíveis para cancelamento:")
-                for i, consultaDisponivel in enumerate(consultas):
-                    print(f"{i+1}- {consultaDisponivel}")
+                if consultas:
+                    print("\nConsultas disponíveis para cancelamento:")
+                    for i, consultaDisponivel in enumerate(consultas):
+                        print(f"{i+1}- {consultaDisponivel}")
 
-                numeroConsulta = int(input("\nDigite o número da consulta a ser cancelada: "))
+                    numeroConsulta = int(input("\nDigite o número da consulta a ser cancelada: "))
 
-                if 1 <= numeroConsulta <= len(consulta.consultas):
-                    print(consulta.cancelarConsulta(consulta.consultas[numeroConsulta - 1]))
+                    if 1 <= numeroConsulta <= len(consulta.consultas):
+                        print(consulta.cancelarConsulta(consulta.consultas[numeroConsulta - 1]))
+                        break
+                    else:
+                        print("\nNúmero de consulta inválido. Tente novamente.")
+
                 else:
-                    print("\nNúmero de consulta inválido. Tente novamente.")
-
-            else:
-                print("\nNenhuma consulta disponível para cancelamento.")
+                    print("\nNenhuma consulta disponível para cancelamento.")
+                    break
 
         elif opcao == "5":
 

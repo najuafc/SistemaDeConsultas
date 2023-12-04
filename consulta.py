@@ -17,7 +17,7 @@ class Consulta:
     
     def alterarConsulta(self, numeroConsulta, novaDataHora):
         if 1 <= numeroConsulta <= len(self.consultas):
-            consultaAlterada = self.consultas[numeroConsulta - 1]
+            consultaAlterada = self.consultas[numeroConsulta - 1]  # Obtém a consulta específica da lista de consultas
             consultaAlterada.dataHora = novaDataHora
             return f"Consulta alterada para {novaDataHora}."
         else:
