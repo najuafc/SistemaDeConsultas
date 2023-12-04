@@ -7,16 +7,21 @@ class Consulta:
         self.consultas = []
 
     def marcarConsulta(self, paciente, medico, dataHora):
-            novaConsulta = Consulta(self, medico, dataHora)
-            self.consultas.append(novaConsulta)
-            return f"Consulta do paciente {paciente.nome} marcada para {dataHora} com {medico.nome}."
+        novaConsulta = Consulta(paciente, medico, dataHora)
+        self.consultas.append(novaConsulta)
+        return f"Consulta do paciente {paciente.nome} marcada para {dataHora} com {medico.nome}."
 
     def mostrarConsultas(self):
+        # Cria uma lista que retorna a dataHora de cada uma das consultas na lista self.consultas
         return [consulta.dataHora for consulta in self.consultas]
-
-    def alterarConsulta(self, consulta, novaDataHora):
-        self.dataHora = novaDataHora
-        return f"Consulta alterada para {novaDataHora}."
+    
+    def alterarConsulta(self, numeroConsulta, novaDataHora):
+        if 1 <= numeroConsulta <= len(self.consultas):
+            consultaAlterada = self.consultas[numeroConsulta - 1]
+            consultaAlterada.dataHora = novaDataHora
+            return f"Consulta alterada para {novaDataHora}."
+        else:
+            return "Número de consulta inválido. Tente novamente."
 
     def cancelarConsulta(self, consulta):
         self.consultas.remove(consulta)
